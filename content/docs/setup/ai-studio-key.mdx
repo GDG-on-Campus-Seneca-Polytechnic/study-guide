@@ -6,27 +6,42 @@ description: Create a free key in Google AI Studio so your code can call Gemini.
 **You need:** a personal Google account, age 18 or older. **Cost:** free. No card needed. **Time:** 5 minutes.
 
 <Steps>
-<Step n={1} guide="ai-studio-key" title="Open AI Studio's API key page" alt="The AI Studio sign-in page at aistudio.google.com/apikey">
+<Step n={1} guide="ai-studio-key" title="Open AI Studio and find Get API key" alt="Google AI Studio's home screen with the key icon at the bottom left circled">
 
-Go to [aistudio.google.com/apikey](https://aistudio.google.com/apikey) and sign in with your personal Google account.
-
-</Step>
-<Step n={2} guide="ai-studio-key" title="Accept the terms" alt="The AI Studio terms of service dialog">
-
-If this is your first time, accept the Terms of Service. AI Studio then creates a default Google Cloud project and an API key for you.
+Go to [aistudio.google.com](https://aistudio.google.com) and sign in with your personal Google account. If AI Studio asks about cookies or terms, read them and choose. Then click the **key icon** at the bottom left (its tooltip says **Get API key**).
 
 </Step>
-<Step n={3} guide="ai-studio-key" title="Create a key if you need another one" alt="The API Keys page with the Create API key button highlighted">
+<Step n={2} guide="ai-studio-key" title="Click Create API key" alt="The API Keys page with the Create API key button circled">
 
-On the **API Keys** page, click **Create API key**. <Check>the screens inside the create-key dialog are not described in the docs.</Check>
-
-</Step>
-<Step n={4} guide="ai-studio-key" title="Copy the key" alt="The API Keys page with the copy button next to a key highlighted">
-
-Copy the key. Paste it somewhere private for now, like a password manager. Do not paste it into chat or a shared doc.
+You land on the **API Keys** page. Click **Create API key** at the top right.
 
 </Step>
-<Step n={5} guide="ai-studio-key" title="Save it as an environment variable" alt="A terminal with the export GEMINI_API_KEY command">
+<Step n={3} guide="ai-studio-key" title="Name the key and pick a project" alt="The Create a new key dialog with the Create key button circled">
+
+Give the key a name you will recognize, like `Code Jam`. Then pick a project from **Choose an imported project**. If you already have a project you want to use, pick it and skip to step 6.
+
+</Step>
+<Step n={4} guide="ai-studio-key" title="No project yet? Create one" alt="The project menu open, with Create project circled">
+
+Open the project menu and choose **Create project**.
+
+</Step>
+<Step n={5} guide="ai-studio-key" title="Name your project" alt="The Create a new project dialog with the Create project button circled">
+
+Type a name like `Code Jam` and click **Create project**. AI Studio shows **New project created!** and selects it for you.
+
+</Step>
+<Step n={6} guide="ai-studio-key" title="Create the key" alt="The Create a new key dialog with the new project selected and Create key circled">
+
+Check that your new project is selected, then click **Create key**.
+
+</Step>
+<Step n={7} guide="ai-studio-key" title="Copy the key" alt="The API key details dialog with the key hidden and the Copy key button circled">
+
+The **API key details** window shows your key. Click **Copy key** and paste it somewhere private, like a password manager. Do not paste it into chat, a shared doc, or a public repo. You can always open this window again from the API Keys page.
+
+</Step>
+<Step n={8} title="Save it as an environment variable">
 
 The Gemini SDKs read the key from `GEMINI_API_KEY`. On macOS or Linux:
 
@@ -41,12 +56,12 @@ $env:GEMINI_API_KEY="paste-your-key-here"
 ```
 
 </Step>
-<Step n={6} guide="ai-studio-key" title="Restrict the key (recommended)" alt="The Add restrictions menu with Restrict to Gemini API only selected">
+<Step n={9} title="Restrict the key (recommended)">
 
 On the **API Keys** page, use **Add restrictions**, then **Restrict to Gemini API only**. A leaked key can then only call Gemini.
 
 </Step>
-<Step n={7} guide="ai-studio-key" title="Check your limits" alt="The AI Studio rate limit page">
+<Step n={10} title="Check your limits">
 
 Open [aistudio.google.com/rate-limit](https://aistudio.google.com/rate-limit) to see how many requests you can make on the free tier. Limits change often, so check here instead of trusting a number in a blog post.
 
@@ -66,6 +81,7 @@ In AI Studio, open **Dashboard**, then **Projects**, then **Import projects**, a
 Next: [make your first Gemini call](/docs/ai/1-first-gemini-call).
 
 <Sources checked="November 22, 2026">
+- Steps 1 to 7 were walked through and captured on November 22, 2026.
 - [Using Gemini API keys](https://aistudio.google.com/docs/api-key)
 - [Available regions](https://aistudio.google.com/docs/available-regions) (Canada is listed)
 - [Gemini API terms](https://aistudio.google.com/docs/terms) (age 18 and older)
