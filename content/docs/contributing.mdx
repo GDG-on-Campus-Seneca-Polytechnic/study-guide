@@ -1,0 +1,42 @@
+---
+title: Contributing
+description: Add a lesson, fix a step, or drop in a screenshot.
+---
+
+The guide is a set of MDX files in the [study-guide repo](https://github.com/GDG-on-Campus-Seneca-Polytechnic/study-guide). Any chapter member can suggest a change with a pull request.
+
+## Fix a page
+
+Click **Edit this page on GitHub** at the bottom of the page, make the change, and open a pull request.
+
+## Add a screenshot to a sign-up guide
+
+Each step in a sign-up guide has a numbered slot. Save a PNG at:
+
+```text
+public/images/signup/<guide>/<nn>.png
+```
+
+- `<guide>` is the page's file name: `ai-studio-key`, `google-ai-students`, `google-cloud-credits` or `github-student-pack`.
+- `<nn>` is the step number with two digits: `01`, `02` and so on.
+
+The placeholder on the page shows the exact path. Rebuild the site and the screenshot replaces the placeholder.
+
+Before you add a screenshot:
+
+- Crop to the part that matters, and add an arrow or box on what to click.
+- Paint over your email, name, API keys, card details and project numbers.
+- Keep files under about 400 KB.
+
+## Add a lesson
+
+1. Add an `.mdx` file in the track folder, for example `content/docs/web/2-custom-domain.mdx`.
+2. Add its name to that folder's `meta.json` so it shows in the sidebar.
+3. Use the same parts as the other lessons: goal, what you'll build, before you start, steps, concepts, troubleshooting and official sources.
+
+## Writing style
+
+- Plain words and short sentences. Active voice. Sentence case for headings.
+- No em dashes.
+- One action per step. Use the button names exactly as they appear on screen, in **bold**.
+- Link to official docs for details. Mark anything you could not confirm with `<Check>`.

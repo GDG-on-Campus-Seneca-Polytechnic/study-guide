@@ -1,0 +1,91 @@
+---
+title: "Lesson 1: Your first Flutter app"
+description: Install Flutter with VS Code, create an app, run it in Chrome and use hot reload.
+---
+
+## Goal
+
+Install Flutter, run an app, and change it while it runs with hot reload.
+
+## What you'll build
+
+Flutter's starter counter app, running in Chrome, with your own title and colour.
+
+## Before you start
+
+- [VS Code](https://code.visualstudio.com) and [Google Chrome].
+- [Git](https://git-scm.com), which the Flutter install uses.
+- About 3 GB of free disk space. <Check>the exact space the Flutter SDK needs.</Check>
+
+[Google Chrome]: https://www.google.com/chrome/
+
+## Steps
+
+<Steps>
+<Step n={1} title="Install the Flutter extension">
+
+In VS Code, open **Extensions**, search for **Flutter**, and install it. It installs the Dart extension too.
+
+</Step>
+<Step n={2} title="Download the Flutter SDK from VS Code">
+
+Open the Command Palette (Cmd+Shift+P on a Mac, Ctrl+Shift+P on Windows) and run **Flutter: New Project**. VS Code offers to get the SDK: click **Download SDK**, pick a folder, then **Clone Flutter**. When asked, click **Add SDK to PATH**. Restart VS Code and your terminals.
+
+</Step>
+<Step n={3} title="Check your setup">
+
+```bash
+flutter doctor
+```
+
+You only need the **Chrome** line to pass for this lesson. Ignore warnings about Android Studio and Xcode for now.
+
+</Step>
+<Step n={4} title="Create an app">
+
+```bash
+flutter create my_app
+cd my_app
+```
+
+App names use lowercase letters and underscores.
+
+</Step>
+<Step n={5} title="Run it in Chrome">
+
+```bash
+flutter run -d chrome
+```
+
+Chrome opens with the counter app. Click the **+** button a few times.
+
+</Step>
+<Step n={6} title="Change it with hot reload">
+
+Open `lib/main.dart`. Find the title text and the `colorScheme` seed colour, and change them, for example to `Colors.green`. Save, then press `r` in the terminal where `flutter run` is running. The app updates and keeps the counter value.
+
+</Step>
+</Steps>
+
+## Concepts
+
+- **Widget**: everything on screen is a widget: text, buttons, padding, whole pages. You build an app by nesting widgets.
+- **Stateless and stateful**: a stateless widget never changes on its own. A stateful one, like the counter, keeps data and redraws with `setState`.
+- **Hot reload**: injects your changed code into the running app without restarting it, so you keep your place.
+- **Targets**: the same code runs on Chrome, Android, iOS and desktop. Add a device later with Android Studio or Xcode.
+
+## Troubleshooting
+
+| You see | Fix |
+|---|---|
+| `flutter: command not found` | The SDK is not on your PATH. Run **Add SDK to PATH** again, then restart your terminal |
+| `No supported devices connected` | Use `flutter run -d chrome`, and check Chrome is installed |
+| `flutter doctor` shows Android or Xcode errors | You can ignore them for web. Fix them when you want to run on a phone |
+| Pressing `r` does nothing | Click in the terminal running `flutter run` first. In VS Code, saving the file reloads the app |
+
+<Sources checked="November 22, 2026">
+- [Get started with Flutter](https://docs.flutter.dev/get-started)
+- [Install Flutter with VS Code](https://docs.flutter.dev/install/with-vs-code)
+- [Build and run for the web](https://docs.flutter.dev/platform-integration/web/building)
+- [Hot reload](https://docs.flutter.dev/tools/hot-reload)
+</Sources>

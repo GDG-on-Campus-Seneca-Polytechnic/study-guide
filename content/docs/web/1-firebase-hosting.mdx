@@ -1,0 +1,126 @@
+---
+title: "Lesson 1: Put a site online with Firebase Hosting"
+description: Deploy a one-page site with the Firebase CLI and get a public web.app address.
+---
+
+## Goal
+
+Put a static web page online with Firebase Hosting, then update it with one command.
+
+## What you'll build
+
+A one-page site at `https://YOUR-PROJECT-ID.web.app`, plus a private preview link you can share before you publish changes.
+
+## Before you start
+
+- A Google account.
+- [Node.js](https://nodejs.org) 18 or newer. Check with `node --version`.
+- A terminal and a code editor.
+
+Firebase Hosting is free on the **Spark** plan. No card needed.
+
+## Steps
+
+<Steps>
+<Step n={1} title="Create a Firebase project">
+
+Go to the [Firebase console](https://console.firebase.google.com), click to add a new project, and give it a name. Note the **project ID** it shows; it becomes part of your web address.
+
+</Step>
+<Step n={2} title="Install the Firebase CLI and log in">
+
+```bash
+npm install -g firebase-tools
+firebase login
+```
+
+`firebase login` opens your browser. Sign in with the same Google account.
+
+</Step>
+<Step n={3} title="Make a folder with one page">
+
+```bash
+mkdir my-site && cd my-site
+mkdir public
+```
+
+Create `public/index.html`:
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hello from Seneca</title>
+  </head>
+  <body>
+    <h1>Hello from Seneca</h1>
+    <p>My first site on Firebase Hosting.</p>
+  </body>
+</html>
+```
+
+</Step>
+<Step n={4} title="Set up Hosting in the folder">
+
+```bash
+firebase init hosting
+```
+
+Answer the prompts:
+
+- **Project**: use the existing project you made in step 1.
+- **Public directory**: `public`.
+- **Single-page app**: no, for this lesson.
+- **GitHub deploys**: no, for now.
+- If it asks to overwrite `public/index.html`, say **no**, so it keeps your page.
+
+<Check>the exact wording of these prompts changes between CLI versions.</Check> This creates `firebase.json` and `.firebaserc`.
+
+</Step>
+<Step n={5} title="Deploy">
+
+```bash
+firebase deploy --only hosting
+```
+
+The CLI prints your **Hosting URL**. Open it. Your site is also at `YOUR-PROJECT-ID.firebaseapp.com`.
+
+</Step>
+<Step n={6} title="Preview a change before you publish it">
+
+Edit `index.html`, then:
+
+```bash
+firebase hosting:channel:deploy preview
+```
+
+You get a separate link to share for feedback. It expires after 7 days. Run `firebase deploy --only hosting` when you are happy.
+
+</Step>
+</Steps>
+
+## Concepts
+
+- **Static hosting**: Firebase sends your files as they are. There is no server code, so it is fast and cheap.
+- **Public directory**: only files in `public` go online. Keep notes and secrets out of it.
+- **Preview channel**: a temporary copy of your site at its own address, so you can test without changing the live site.
+- **CDN**: Firebase serves your site from many locations, so it loads fast everywhere, with HTTPS included.
+
+## Troubleshooting
+
+| You see | Fix |
+|---|---|
+| `firebase: command not found` | The global install failed or is not on your PATH. Run `npm install -g firebase-tools` again, then open a new terminal |
+| The CLI says your Node.js version is too old | Install Node.js 18 or newer |
+| The deployed page is the Firebase welcome page | `init` overwrote your `index.html`. Paste your page back into `public/index.html` and deploy again |
+| `Error: Failed to get Firebase project` | Run `firebase login` again, or `firebase use --add` to pick the project |
+| Your change does not show | Hard-refresh the page (Shift and reload). Check you deployed to live, not only to a preview channel |
+
+<Sources checked="November 22, 2026">
+- [Get started with Firebase Hosting](https://firebase.google.com/docs/hosting/quickstart)
+- [Firebase CLI reference](https://firebase.google.com/docs/cli)
+- [Preview channels](https://firebase.google.com/docs/hosting/test-preview-deploy)
+- [Firebase pricing](https://firebase.google.com/pricing)
+</Sources>

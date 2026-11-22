@@ -1,0 +1,119 @@
+---
+title: "Lesson 1: Deploy a web service to Cloud Run"
+description: Deploy a small Node.js app from source with one gcloud command.
+---
+
+## Goal
+
+Deploy your own server code to Google Cloud, get a public HTTPS address, and clean it up afterwards.
+
+## What you'll build
+
+A tiny Express app that answers `Hello from Cloud Run`, running at a `run.app` address.
+
+## Before you start
+
+- A Google Cloud project with **billing turned on**. Use the [$300 free trial](/docs/setup/google-cloud-credits). Cloud Run has a monthly free tier, but billing must still be on.
+- [Node.js](https://nodejs.org) installed.
+- The [Google Cloud CLI](https://cloud.google.com/sdk/docs/install-sdk) (`gcloud`) installed.
+
+## Steps
+
+<Steps>
+<Step n={1} title="Point gcloud at your project">
+
+```bash
+gcloud init
+gcloud config set project YOUR_PROJECT_ID
+```
+
+</Step>
+<Step n={2} title="Turn on the APIs">
+
+```bash
+gcloud services enable run.googleapis.com cloudbuild.googleapis.com
+```
+
+</Step>
+<Step n={3} title="Let Cloud Build deploy for you">
+
+Cloud Run builds your code with a service account that needs one role. Find your **project number** on the console's home page, then run:
+
+```bash
+gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
+  --member=serviceAccount:YOUR_PROJECT_NUMBER-compute@developer.gserviceaccount.com \
+  --role=roles/run.builder
+```
+
+It can take a couple of minutes to take effect.
+
+</Step>
+<Step n={4} title="Write the app">
+
+```bash
+mkdir hello-run && cd hello-run
+npm init -y
+npm install express
+```
+
+Create `index.js`:
+
+```js
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send('Hello from Cloud Run');
+});
+
+// Cloud Run tells your app which port to use.
+const port = parseInt(process.env.PORT) || 8080;
+app.listen(port, () => console.log(`Listening on port ${port}`));
+```
+
+In `package.json`, set the start script to `"start": "node index.js"`. Try it locally with `npm start` and open `http://localhost:8080`.
+
+</Step>
+<Step n={5} title="Deploy from source">
+
+```bash
+gcloud run deploy hello-run --source . --region northamerica-northeast2 --allow-unauthenticated
+```
+
+`northamerica-northeast2` is Toronto. Say **yes** when it asks to enable more APIs or create a repository. When it finishes, it prints the **Service URL**. Open it.
+
+</Step>
+<Step n={6} title="Clean up">
+
+```bash
+gcloud run services delete hello-run --region northamerica-northeast2
+```
+
+Also delete the `cloud-run-source-deploy` repository in **Artifact Registry**. Stored images can cost money even when Cloud Run itself is free.
+
+</Step>
+</Steps>
+
+## Concepts
+
+- **Container**: Cloud Run runs containers. With `--source`, Cloud Build makes the container for you from your code.
+- **PORT**: Cloud Run sets the `PORT` variable. Your app must listen on it.
+- **Scale to zero**: with no requests, nothing runs and you pay nothing for compute.
+- **Region**: where your service runs. Pick one near your users. <Check>`northamerica-northeast2` may cost a little more than tier 1 regions such as `us-central1`.</Check>
+- **Free tier**: each month, the first 2 million requests and a set amount of CPU and memory time are free, shared across your billing account. See [Cloud Run pricing](https://cloud.google.com/run/pricing).
+
+## Troubleshooting
+
+| You see | Fix |
+|---|---|
+| `PERMISSION_DENIED` during the build | Do step 3, wait two minutes, and deploy again |
+| `Billing account ... is not found` or billing errors | Turn on billing for the project, or start the free trial |
+| `Container failed to start ... listen on the port` | Your app must listen on `process.env.PORT`, not a fixed port |
+| The page says `Forbidden` | You skipped `--allow-unauthenticated`, or your organization blocks public services. Deploy again with the flag from a personal project |
+| `gcloud: command not found` | Install the Google Cloud CLI and open a new terminal |
+
+<Sources checked="November 22, 2026">
+- [Quickstart: Deploy a Node.js service to Cloud Run](https://cloud.google.com/run/docs/quickstarts/build-and-deploy/deploy-nodejs-service)
+- [gcloud run deploy reference](https://cloud.google.com/sdk/gcloud/reference/run/deploy)
+- [Cloud Run pricing](https://cloud.google.com/run/pricing)
+</Sources>

@@ -1,0 +1,35 @@
+{
+  "name": "study-guide",
+  "version": "0.1.0",
+  "private": true,
+  "description": "GDG on Campus @ Seneca Polytechnic study guide: sign-up guides, starter tracks on Google tools, and the Code Jam.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "preview": "serve out",
+    "check:links": "node scripts/check-links.mjs",
+    "types:check": "next typegen && tsc --noEmit"
+  },
+  "dependencies": {
+    "@fontsource-variable/roboto": "^5.2.8",
+    "@fontsource-variable/roboto-mono": "^5.2.8",
+    "fumadocs-core": "16.15.14",
+    "fumadocs-mdx": "15.4.4",
+    "fumadocs-ui": "npm:@fumadocs/base-ui@16.15.14",
+    "lucide-react": "^1.47.0",
+    "next": "16.3.5",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/mdx": "^2.0.14",
+    "@types/node": "^26.6.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "postcss": "^8.5.28",
+    "serve": "^14.2.6",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2"
+  }
+}

@@ -1,0 +1,96 @@
+---
+title: "Lesson 2: Give Gemini a role"
+description: Use a system instruction to control how Gemini answers, then turn it into a small study buddy.
+---
+
+## Goal
+
+Control Gemini's tone, format and limits with a **system instruction**, separate from what the user types.
+
+## What you'll build
+
+A study buddy that always answers with a hint first and never just hands over the answer.
+
+## Before you start
+
+Finish [Lesson 1](/docs/ai/1-first-gemini-call). This lesson changes the same script.
+
+## Steps
+
+<Steps>
+<Step n={1} title="Add a system instruction">
+
+<Tabs items={['JavaScript', 'Python']}>
+<Tab value="JavaScript">
+
+```js
+import { GoogleGenAI } from '@google/genai';
+
+const ai = new GoogleGenAI({});
+
+const interaction = await ai.interactions.create({
+  model: 'gemini-4-hydrogen',
+  system_instruction:
+    'You are a study buddy for college students. Give a hint first. ' +
+    'Only give the full answer if the student asks for it. Keep replies under 80 words.',
+  input: 'How do I reverse a string in Python?',
+});
+
+console.log(interaction.output_text);
+```
+
+</Tab>
+<Tab value="Python">
+
+```python
+from google import genai
+
+client = genai.Client()
+
+interaction = client.interactions.create(
+    model="gemini-4-hydrogen",
+    system_instruction=(
+        "You are a study buddy for college students. Give a hint first. "
+        "Only give the full answer if the student asks for it. Keep replies under 80 words."
+    ),
+    input="How do I reverse a string in Python?",
+)
+
+print(interaction.output_text)
+```
+
+</Tab>
+</Tabs>
+
+</Step>
+<Step n={2} title="Run it and compare">
+
+Run it, then remove the `system_instruction` line and run it again. Notice how the reply changes.
+
+</Step>
+<Step n={3} title="Try it in AI Studio">
+
+Open [AI Studio](https://aistudio.google.com), paste the same instruction into the system instructions box, and chat with it. AI Studio is the quickest place to tune an instruction before you put it in code.
+
+</Step>
+</Steps>
+
+## Concepts
+
+- **System instruction**: rules the model follows for the whole conversation. Users do not see it.
+- **Prompt**: what the user asks each time.
+- **Be specific**: "under 80 words" works better than "be short". Say what to do, not only what to avoid.
+- **It is a guide, not a lock**: a determined user can sometimes talk the model out of its rules. Do not put secrets in a system instruction.
+
+## Troubleshooting
+
+| You see | Fix |
+|---|---|
+| The model ignores the instruction | Make it shorter and more direct. Put the most important rule first |
+| An error about an unknown field | Check the field name for your SDK in the official guide |
+| Same errors as Lesson 1 | See [Lesson 1 troubleshooting](/docs/ai/1-first-gemini-call#troubleshooting) |
+
+<Sources checked="November 22, 2026">
+- [Text generation and system instructions](https://aistudio.google.com/docs/text-generation)
+- [Gemini API quickstart](https://aistudio.google.com/docs/get-started)
+</Sources>

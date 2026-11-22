@@ -1,0 +1,130 @@
+---
+title: "Lesson 1: Your first Gemini call"
+description: Send a prompt to Gemini from Node.js or Python and print the answer.
+---
+
+## Goal
+
+Call the Gemini API from your own code, with your key kept out of the code.
+
+## What you'll build
+
+A script that asks Gemini a question and prints the answer in your terminal.
+
+## Before you start
+
+- A [Gemini API key](/docs/setup/ai-studio-key).
+- Node.js 18 or newer, or Python 3.9 or newer. <Check>the minimum versions for the Google Gen AI SDKs.</Check>
+
+## Steps
+
+<Steps>
+<Step n={1} title="Put your key in an environment variable">
+
+```bash
+export GEMINI_API_KEY="paste-your-key-here"
+```
+
+The SDK reads `GEMINI_API_KEY` for you, so the key never appears in your code. On Windows PowerShell, use `$env:GEMINI_API_KEY="..."`.
+
+</Step>
+<Step n={2} title="Install the Google Gen AI SDK">
+
+<Tabs items={['JavaScript', 'Python']}>
+<Tab value="JavaScript">
+
+```bash
+mkdir first-gemini && cd first-gemini
+npm init -y
+npm pkg set type=module
+npm install @google/genai
+```
+
+</Tab>
+<Tab value="Python">
+
+```bash
+pip install -U google-genai
+```
+
+</Tab>
+</Tabs>
+
+</Step>
+<Step n={3} title="Write the script">
+
+Check the [official quickstart](https://aistudio.google.com/docs/get-started) for the current model name and use that in place of the one below. Models change often.
+
+<Tabs items={['JavaScript', 'Python']}>
+<Tab value="JavaScript">
+
+`index.js`:
+
+```js
+import { GoogleGenAI } from '@google/genai';
+
+const ai = new GoogleGenAI({});
+
+const interaction = await ai.interactions.create({
+  model: 'gemini-4-hydrogen',
+  input: 'Explain what an API is to a first-year student, in three sentences.',
+});
+
+console.log(interaction.output_text);
+```
+
+</Tab>
+<Tab value="Python">
+
+`main.py`:
+
+```python
+from google import genai
+
+client = genai.Client()
+
+interaction = client.interactions.create(
+    model="gemini-4-hydrogen",
+    input="Explain what an API is to a first-year student, in three sentences.",
+)
+
+print(interaction.output_text)
+```
+
+</Tab>
+</Tabs>
+
+</Step>
+<Step n={4} title="Run it">
+
+```bash
+node index.js     # or: python main.py
+```
+
+You should see a short answer. Change the `input` and run it again.
+
+</Step>
+</Steps>
+
+## Concepts
+
+- **API key**: proves the request is yours, and counts it against your limits. Anyone with the key can spend your quota.
+- **Model**: which version of Gemini answers. Faster models cost less and reply sooner; larger ones reason better.
+- **Interactions API**: the current way to call Gemini in the official quickstart. Older code uses `generateContent`. It still works, but Google calls it legacy. You will see both in tutorials.
+- **Tokens**: models read and write text in small pieces called tokens. Limits and prices are counted in tokens.
+
+## Troubleshooting
+
+| You see | Fix |
+|---|---|
+| `API key not valid` or a 400 error about the key | The variable is not set in this terminal. Run the `export` again, in the same window |
+| `429` or `RESOURCE_EXHAUSTED` | You hit the free tier limit. Wait a minute, or check [your limits](https://aistudio.google.com/rate-limit) |
+| `404` or "model not found" | The model name changed. Copy the current one from the quickstart |
+| `Cannot use import statement outside a module` | Run `npm pkg set type=module`, or rename the file to `index.mjs` |
+| `ai.interactions` is undefined | Your SDK is old. Run `npm install @google/genai@latest` or `pip install -U google-genai` |
+
+<Sources checked="November 22, 2026">
+- [Gemini API quickstart](https://aistudio.google.com/docs/get-started)
+- [Legacy generateContent quickstart](https://aistudio.google.com/docs/get-started?generate-content=true)
+- [Using Gemini API keys](https://aistudio.google.com/docs/api-key)
+</Sources>
