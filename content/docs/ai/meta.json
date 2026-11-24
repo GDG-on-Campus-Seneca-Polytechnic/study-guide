@@ -1,5 +1,6 @@
 {
   "title": "AI and ML",
+  "icon": "ai",
   "pages": [
     "1-first-gemini-call",
     "2-system-instructions"

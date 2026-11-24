@@ -6,7 +6,7 @@ import { basePath } from '@/lib/shared';
 
 // A numbered list of steps. Wrap <Step> elements in it.
 export function Steps({ children }: { children: ReactNode }) {
-  return <ol className="not-prose my-8 flex list-none flex-col gap-10 p-0">{children}</ol>;
+  return <ol className="steps not-prose my-8 flex list-none flex-col gap-10 p-0">{children}</ol>;
 }
 
 // One step: a number, a short instruction, and an optional screenshot.
@@ -38,10 +38,10 @@ export function Step({
   const hasImage = imagePath ? existsSync(join(process.cwd(), 'public', imagePath)) : false;
 
   return (
-    <li className="grid grid-cols-[2.25rem_1fr] items-center gap-x-3 sm:grid-cols-[2.75rem_1fr] sm:items-start sm:gap-x-4">
+    <li className="step grid grid-cols-[2.25rem_1fr] items-center gap-x-3 sm:grid-cols-[2.75rem_1fr] sm:items-start sm:gap-x-4">
       <span
         aria-hidden
-        className="flex size-9 items-center justify-center rounded-full bg-g-ink font-mono text-sm font-semibold text-white sm:size-11 sm:text-base dark:bg-g-paper dark:text-g-ink"
+        className="step-num flex size-9 items-center justify-center rounded-full text-sm font-semibold tabular-nums sm:size-11 sm:text-base"
       >
         {n}
       </span>

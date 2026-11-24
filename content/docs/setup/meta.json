@@ -1,5 +1,6 @@
 {
   "title": "Get set up",
+  "icon": "setup",
   "pages": [
     "ai-studio-key",
     "google-ai-students",

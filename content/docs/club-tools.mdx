@@ -1,0 +1,69 @@
+---
+title: Club tools
+description: The apps the chapter runs at events, with their live links and source code.
+icon: club-tools
+---
+
+Club members built these apps for our events. Each one is open source in the chapter's GitHub organization.
+
+## How they fit together
+
+<Diagram name="club-system" />
+
+On event day, phones scan a QR code on the projector to join a game or open the ballot. The organizer runs the vote from its host page. Both apps run on Cloudflare Workers, with Durable Objects holding each game room or poll. This study guide is a separate static site on GitHub Pages.
+
+## The apps
+
+<ToolGrid>
+
+<ToolCard
+  name="Code Jam voting"
+  icon="vote"
+  live={[["Vote", "https://gdg-code-jam-vote.tatandat110105.workers.dev"], ["Host page", "https://gdg-code-jam-vote.tatandat110105.workers.dev/host"], ["Projector", "https://gdg-code-jam-vote.tatandat110105.workers.dev/screen"]]}
+  repo="https://github.com/GDG-on-Campus-Seneca-Polytechnic/code-jam-vote"
+  demo="https://github.com/GDG-on-Campus-Seneca-Polytechnic/code-jam-vote/blob/main/docs/demo.gif"
+>
+
+The audience vote after the demos. Each attendee gets a single-use code at check-in and votes on their phone. The projector reveals the results, 3rd to 1st.
+
+</ToolCard>
+
+<ToolCard
+  name="Bean Bash"
+  icon="game"
+  live={[["Play on your phone", "https://gdg-bean-bash.tatandat110105.workers.dev"], ["Projector arena", "https://gdg-bean-bash.tatandat110105.workers.dev/arena"]]}
+  repo="https://github.com/GDG-on-Campus-Seneca-Polytechnic/bean-bash"
+  demo="https://github.com/GDG-on-Campus-Seneca-Polytechnic/bean-bash/blob/main/docs/demo.gif"
+>
+
+Audience trivia. The projector shows a 3D arena, and you drag your bean onto one of four answer platforms before the timer ends. Last bean standing wins.
+
+</ToolCard>
+
+<ToolCard
+  name="Jam Seed"
+  icon="seed"
+  status="soon"
+  repo="https://github.com/GDG-on-Campus-Seneca-Polytechnic/jam-seed"
+>
+
+Type the idea you have been sitting on. Gemini cuts it down to something you can finish in two hours with free Google tools, and hands back a prompt to start from.
+
+</ToolCard>
+
+<ToolCard
+  name="Chapter info"
+  icon="chapter"
+  live={[["All our links", "https://linktr.ee/senecagdg"], ["GDG community page", "https://gdg.community.dev/gdg-on-campus-seneca-polytechnic-toronto-canada/"]]}
+  repo="https://github.com/GDG-on-Campus-Seneca-Polytechnic/gdgSen-info"
+>
+
+Who we are, the brand kit, and how the chapter runs. Join on the community page to hear about the next event.
+
+</ToolCard>
+
+</ToolGrid>
+
+## Run one yourself
+
+Each repo's README explains how to rehearse locally and deploy. Organizers: use the host and projector links above, and keep host links private.

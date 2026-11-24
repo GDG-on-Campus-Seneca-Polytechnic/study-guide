@@ -2,7 +2,7 @@
   "title": "GDG Seneca Study Guide",
   "pages": [
     "index",
-    "---Start---",
+    "---Start here---",
     "setup",
     "---Tracks---",
     "web",
@@ -11,7 +11,8 @@
     "mobile",
     "---Events---",
     "code-jam",
-    "---Chapter---",
+    "---Club---",
+    "club-tools",
     "contributing"
   ]
 }

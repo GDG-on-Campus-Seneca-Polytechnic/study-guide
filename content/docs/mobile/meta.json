@@ -1,5 +1,6 @@
 {
   "title": "Mobile",
+  "icon": "mobile",
   "pages": [
     "1-flutter-first-app"
   ]

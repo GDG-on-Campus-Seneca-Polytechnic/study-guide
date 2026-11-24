@@ -1,6 +1,7 @@
 ---
 title: Contributing
 description: Add a lesson, fix a step, or drop in a screenshot.
+icon: contributing
 ---
 
 The guide is a set of MDX files in the [study-guide repo](https://github.com/GDG-on-Campus-Seneca-Polytechnic/study-guide). Any chapter member can suggest a change with a pull request.
@@ -32,7 +33,12 @@ Before you add a screenshot:
 
 1. Add an `.mdx` file in the track folder, for example `content/docs/web/2-custom-domain.mdx`.
 2. Add its name to that folder's `meta.json` so it shows in the sidebar.
-3. Use the same parts as the other lessons: goal, what you'll build, before you start, steps, concepts, troubleshooting and official sources.
+3. Copy an existing lesson and keep its parts: a `<BuildCard>` with the goal and what you'll build, a "How it fits together" diagram, before you start, steps, concepts, troubleshooting and official sources.
+4. Fill in the frontmatter: `sidebarTitle` (a short sidebar label), `time`, `level` and `needs`. The README lists every field and component.
+
+## Add a diagram
+
+Every lesson and track overview has a flow diagram. Diagrams are data in `src/components/diagrams.tsx`: a list of columns of boxes, each with an icon, a label and a short line under it. Use one in a page with `<Diagram name="..." />`. Draw only what the page says, write a real `alt` sentence, and check the diagram on a phone and in dark mode. See the README for the format.
 
 ## Writing style
 

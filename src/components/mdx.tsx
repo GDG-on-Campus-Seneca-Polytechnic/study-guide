@@ -4,6 +4,8 @@ import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 import type { MDXComponents } from 'mdx/types';
 import { Step, Steps } from '@/components/step';
 import { Check, Sources } from '@/components/notes';
+import { Diagram } from '@/components/diagrams';
+import { BuildCard, ToolCard, ToolGrid } from '@/components/lesson';
 
 export function getMDXComponents(components?: MDXComponents) {
   return {
@@ -16,6 +18,10 @@ export function getMDXComponents(components?: MDXComponents) {
     Accordions,
     Check,
     Sources,
+    Diagram,
+    BuildCard,
+    ToolCard,
+    ToolGrid,
     ...components,
   } satisfies MDXComponents;
 }

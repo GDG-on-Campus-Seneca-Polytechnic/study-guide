@@ -1,0 +1,865 @@
+/* Study guide components: track colours, sidebar, page header, diagrams,
+   build card, steps, sources, tool cards. Imported by global.css. */
+
+/* ---------- Track colours ----------
+   --tk      the palette colour (fills, icons, lines)
+   --tk-ink  a text-safe shade of it for this theme
+   --tk-on   text or icon colour on top of --tk
+   --tk-soft a light wash of it on the page background */
+:root,
+[data-track] {
+  --tk: #1e1e1e;
+  --tk-ink: #1e1e1e;
+  --tk-on: #f0f0f0;
+}
+.dark,
+.dark [data-track] {
+  --tk: #e4e4e4;
+  --tk-ink: #f0f0f0;
+  --tk-on: #1e1e1e;
+}
+[data-track='web'] { --tk: #4285f4; --tk-ink: #1a5fd6; --tk-on: #fff; }
+[data-track='cloud'] { --tk: #34a853; --tk-ink: #137333; --tk-on: #fff; }
+[data-track='ai'] { --tk: #f9ab00; --tk-ink: #8a5300; --tk-on: #1e1e1e; }
+[data-track='mobile'] { --tk: #ea4335; --tk-ink: #c5221f; --tk-on: #fff; }
+.dark [data-track='web'] { --tk: #4285f4; --tk-ink: #8ab4f8; --tk-on: #fff; }
+.dark [data-track='cloud'] { --tk: #34a853; --tk-ink: #81c995; --tk-on: #fff; }
+.dark [data-track='ai'] { --tk: #f9ab00; --tk-ink: #fdd663; --tk-on: #1e1e1e; }
+.dark [data-track='mobile'] { --tk: #ea4335; --tk-ink: #f28b82; --tk-on: #fff; }
+
+:root,
+[data-track] {
+  --tk-soft: color-mix(in oklab, var(--tk) 9%, var(--color-fd-background));
+  --tk-line: color-mix(in oklab, var(--tk) 45%, var(--color-fd-border));
+}
+.dark,
+.dark [data-track] {
+  --tk-soft: color-mix(in oklab, var(--tk) 14%, var(--color-fd-background));
+}
+
+/* ---------- Track icon: a small tab in the track colour ---------- */
+.track-icon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 1.375rem;
+  height: 1.375rem;
+  border-radius: 0.4rem;
+  background: var(--tk);
+  color: var(--tk-on);
+}
+.track-icon > svg {
+  width: 62% !important;
+  height: 62% !important;
+  stroke-width: 2.25;
+}
+.track-icon[data-track='code-jam'] {
+  background: conic-gradient(from 45deg, #4285f4 0 25%, #ea4335 0 50%, #f9ab00 0 75%, #34a853 0);
+  color: #fff;
+}
+.track-icon[data-track='code-jam'] > svg {
+  filter: drop-shadow(0 0 1px rgb(0 0 0 / 0.45));
+}
+
+/* ---------- Sidebar ---------- */
+:is(#nd-sidebar, #nd-sidebar-mobile) {
+  --sb-sep: color-mix(in oklab, var(--color-fd-foreground) 52%, var(--color-fd-background));
+}
+/* Section separators ("Start here", "Tracks", ...): a small label and a hairline. */
+:is(#nd-sidebar, #nd-sidebar-mobile) p {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.4rem;
+  margin-bottom: 0.4rem;
+  padding-inline: 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sb-sep);
+}
+:is(#nd-sidebar, #nd-sidebar-mobile) p::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-fd-border);
+}
+:is(#nd-sidebar, #nd-sidebar-mobile) a,
+:is(#nd-sidebar, #nd-sidebar-mobile) button[data-panel-open],
+:is(#nd-sidebar, #nd-sidebar-mobile) [data-sidebar-folder] > button {
+  font-weight: 500;
+}
+/* Each sidebar folder takes its colour from its icon. */
+:is(#nd-sidebar, #nd-sidebar-mobile) div:has(> a > .track-icon[data-track='web'], > button > .track-icon[data-track='web']) {
+  --tk: #4285f4;
+  --tk-ink: #1a5fd6;
+  --tk-soft: color-mix(in oklab, #4285f4 11%, var(--color-fd-card));
+}
+.dark :is(#nd-sidebar, #nd-sidebar-mobile) div:has(> a > .track-icon[data-track='web'], > button > .track-icon[data-track='web']) {
+  --tk-ink: #8ab4f8;
+  --tk-soft: color-mix(in oklab, #4285f4 16%, var(--color-fd-card));
+}
+:is(#nd-sidebar, #nd-sidebar-mobile) div:has(> a > .track-icon[data-track='cloud'], > button > .track-icon[data-track='cloud']) {
+  --tk: #34a853;
+  --tk-ink: #137333;
+  --tk-soft: color-mix(in oklab, #34a853 11%, var(--color-fd-card));
+}
+.dark :is(#nd-sidebar, #nd-sidebar-mobile) div:has(> a > .track-icon[data-track='cloud'], > button > .track-icon[data-track='cloud']) {
+  --tk-ink: #81c995;
+  --tk-soft: color-mix(in oklab, #34a853 16%, var(--color-fd-card));
+}
+:is(#nd-sidebar, #nd-sidebar-mobile) div:has(> a > .track-icon[data-track='ai'], > button > .track-icon[data-track='ai']) {
+  --tk: #f9ab00;
+  --tk-ink: #8a5300;
+  --tk-soft: color-mix(in oklab, #f9ab00 11%, var(--color-fd-card));
+}
+.dark :is(#nd-sidebar, #nd-sidebar-mobile) div:has(> a > .track-icon[data-track='ai'], > button > .track-icon[data-track='ai']) {
+  --tk-ink: #fdd663;
+  --tk-soft: color-mix(in oklab, #f9ab00 16%, var(--color-fd-card));
+}
+:is(#nd-sidebar, #nd-sidebar-mobile) div:has(> a > .track-icon[data-track='mobile'], > button > .track-icon[data-track='mobile']) {
+  --tk: #ea4335;
+  --tk-ink: #c5221f;
+  --tk-soft: color-mix(in oklab, #ea4335 11%, var(--color-fd-card));
+}
+.dark :is(#nd-sidebar, #nd-sidebar-mobile) div:has(> a > .track-icon[data-track='mobile'], > button > .track-icon[data-track='mobile']) {
+  --tk-ink: #f28b82;
+  --tk-soft: color-mix(in oklab, #ea4335 16%, var(--color-fd-card));
+}
+/* Active page: a wash of the track colour, set by the folder's icon. */
+:is(#nd-sidebar, #nd-sidebar-mobile) a[data-active='true'] {
+  background: var(--tk-soft);
+  color: var(--tk-ink);
+  font-weight: 600;
+}
+:is(#nd-sidebar, #nd-sidebar-mobile) a[data-active='true']:has(> .track-icon[data-track='guide']),
+:is(#nd-sidebar, #nd-sidebar-mobile) a[data-active='true']:not(:has(.track-icon)) {
+  color: var(--color-fd-foreground);
+}
+
+/* ---------- Page header ---------- */
+.docs-page {
+  --page-gap: 1.5rem;
+}
+.page-head {
+  position: relative;
+  padding-top: 0.25rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-fd-border);
+}
+.page-head-tab {
+  width: 3.5rem;
+  height: 0.375rem;
+  border-radius: 999px;
+  background: var(--tk);
+  margin-bottom: 1.25rem;
+}
+[data-track='code-jam'] .page-head-tab {
+  background: linear-gradient(90deg, #4285f4 0 25%, #ea4335 0 50%, #f9ab00 0 75%, #34a853 0);
+  width: 6rem;
+}
+.page-head-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--tk-ink);
+}
+.page-head-eyebrow .track-icon {
+  border-radius: 0.45rem;
+}
+.page-head-title {
+  margin-top: 0.85rem;
+  font-size: clamp(2rem, 1.35rem + 2.2vw, 2.85rem);
+  line-height: 1.04;
+  font-weight: 820;
+  font-stretch: 84%;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+.page-head-desc {
+  margin-top: 0.85rem;
+  max-width: 42rem;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  color: var(--color-fd-muted-foreground);
+  text-wrap: pretty;
+}
+.page-head-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+.page-head-chips .chip-group {
+  display: contents;
+}
+.page-head-chips .chip-group > dt {
+  margin-left: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-fd-muted-foreground);
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-fd-border);
+  background: var(--color-fd-card);
+  font-size: 0.8125rem;
+  line-height: 1.2;
+}
+.chip svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+.chip-strong {
+  border-color: var(--tk-line);
+  background: var(--tk-soft);
+  color: var(--tk-ink);
+  font-weight: 600;
+}
+.chip-strong dt {
+  display: inline-flex;
+}
+
+/* ---------- Diagrams ---------- */
+.dg {
+  container-type: inline-size;
+  margin: 1.75rem 0 2.25rem;
+}
+.dg-canvas {
+  border: 1px solid var(--color-fd-border);
+  border-radius: 1rem;
+  padding: clamp(0.75rem, 2cqi, 1.5rem) clamp(0.5rem, 2cqi, 1.25rem);
+  background-color: var(--color-fd-card);
+  background-image: radial-gradient(color-mix(in oklab, var(--color-fd-foreground) 13%, transparent) 1px, transparent 1.2px);
+  background-size: 18px 18px;
+}
+.dg svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-inline: auto;
+  overflow: visible;
+}
+.dg-narrow {
+  display: none !important;
+}
+@container (width < 620px) {
+  .dg-wide {
+    display: none !important;
+  }
+  .dg-narrow {
+    display: block !important;
+  }
+}
+.dg figcaption {
+  margin-top: 0.7rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-fd-muted-foreground);
+  text-wrap: balance;
+}
+.dg figcaption code {
+  font-size: 0.8em;
+}
+.dg-node {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-fd-border);
+  border-radius: 12px;
+  background: var(--color-fd-background);
+  color: var(--color-fd-foreground);
+  font-family: var(--font-sans);
+  box-shadow: 0 1px 0 color-mix(in oklab, var(--color-fd-foreground) 6%, transparent);
+}
+.dg-node[data-layout='stack'] {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+}
+.dg-node[data-layout='row'] {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+}
+.dg-badge {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--tk-soft);
+  color: var(--tk-ink);
+}
+.dg-badge svg {
+  width: 17px;
+  height: 17px;
+}
+.dg-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.dg-label {
+  font-size: 13.5px;
+  font-weight: 650;
+  line-height: 1.2;
+}
+.dg-sub {
+  font-size: 11.5px;
+  line-height: 1.3;
+  color: var(--color-fd-muted-foreground);
+}
+.dg-sub code {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  padding: 0 3px;
+  border-radius: 4px;
+  background: var(--color-fd-muted);
+  color: var(--color-fd-foreground);
+}
+.dg-node[data-tone='accent'] {
+  border-color: var(--tk-line);
+  background: var(--tk-soft);
+}
+.dg-node[data-tone='accent'] .dg-badge {
+  background: var(--tk);
+  color: var(--tk-on);
+}
+.dg-node[data-tone='accent'][data-track='code-jam'] .dg-badge {
+  background: conic-gradient(from 45deg, #4285f4 0 25%, #ea4335 0 50%, #f9ab00 0 75%, #34a853 0);
+  color: #fff;
+}
+.dg-node[data-tone='ghost'] {
+  border-style: dashed;
+  background: transparent;
+  box-shadow: none;
+}
+.dg-node[data-tone='ghost'] .dg-label {
+  color: var(--color-fd-muted-foreground);
+}
+.dg-narrow .dg-label {
+  font-size: 14px;
+}
+.dg-narrow .dg-sub {
+  font-size: 12px;
+}
+.dg-line {
+  fill: none;
+  stroke: color-mix(in oklab, var(--color-fd-foreground) 28%, transparent);
+  stroke-width: 1.5;
+}
+.dg-pulse {
+  fill: none;
+  stroke: var(--tk);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 5 15;
+  animation: dg-flow 1.4s linear infinite;
+}
+.dg-head {
+  fill: color-mix(in oklab, var(--color-fd-foreground) 60%, transparent);
+}
+@keyframes dg-flow {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+.dg-frame rect {
+  fill: color-mix(in oklab, var(--tk) 5%, transparent);
+  stroke: color-mix(in oklab, var(--color-fd-foreground) 30%, transparent);
+  stroke-width: 1.25;
+  stroke-dasharray: 5 5;
+}
+.dg-frame-label {
+  paint-order: stroke;
+  stroke: var(--color-fd-card);
+  stroke-width: 6px;
+  stroke-linejoin: round;
+}
+.dg-frame-label {
+  fill: var(--color-fd-muted-foreground);
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 650;
+}
+
+/* ---------- Build card ---------- */
+.build-card {
+  display: grid;
+  gap: 0;
+  margin: 1.75rem 0;
+  border: 1px solid var(--tk-line);
+  border-radius: 1rem;
+  background: var(--tk-soft);
+  overflow: hidden;
+}
+@media (min-width: 900px) {
+  .build-card {
+    grid-template-columns: 1.4fr 1fr;
+  }
+}
+.build-card-main,
+.build-card-goal {
+  padding: 1.25rem 1.4rem;
+}
+.build-card-goal {
+  border-top: 1px solid var(--tk-line);
+  background: color-mix(in oklab, var(--color-fd-background) 55%, transparent);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+@media (min-width: 900px) {
+  .build-card-goal {
+    border-top: 0;
+    border-left: 1px solid var(--tk-line);
+  }
+}
+.build-card-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--tk-ink);
+}
+.build-card-kicker svg {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+.build-card-body {
+  font-size: 1.125rem;
+  line-height: 1.5;
+  font-weight: 500;
+  text-wrap: pretty;
+}
+.build-card-body p {
+  margin: 0;
+}
+.build-card code,
+.sources code,
+.tool-card code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  padding: 0.1em 0.35em;
+  border-radius: 0.35em;
+  background: color-mix(in oklab, var(--color-fd-background) 70%, transparent);
+  border: 1px solid var(--color-fd-border);
+}
+
+/* ---------- Steps ---------- */
+.step {
+  position: relative;
+}
+.step-num {
+  position: relative;
+  z-index: 1;
+  background: var(--tk-soft);
+  color: var(--tk-ink);
+  box-shadow:
+    inset 0 0 0 1.5px var(--tk-line),
+    0 0 0 4px var(--color-fd-background);
+}
+@media (min-width: 640px) {
+  .step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: calc(1.375rem - 0.75px);
+    top: 2.75rem;
+    bottom: -2.5rem;
+    width: 1.5px;
+    background: linear-gradient(var(--tk-line), var(--color-fd-border));
+  }
+}
+
+/* ---------- Check note ---------- */
+.check-note {
+  border-radius: 0.3rem;
+  padding: 0.1rem 0.3rem;
+  font-size: 0.92em;
+  background: color-mix(in oklab, #f9ab00 16%, transparent);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* ---------- Sources ---------- */
+.sources {
+  margin-top: 3.5rem;
+  padding-top: 1.25rem;
+  border-top: 2px solid var(--color-fd-foreground);
+}
+.sources-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.sources-head svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--tk-ink);
+}
+.sources-head > p {
+  font-weight: 750;
+  font-stretch: 88%;
+  font-size: 1.125rem;
+}
+.sources-date {
+  margin-left: auto;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--color-fd-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-fd-muted-foreground);
+}
+.sources-list ul {
+  display: grid;
+  gap: 0.5rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 720px) {
+  .sources-list ul {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.sources-list li {
+  margin: 0;
+}
+.sources-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  height: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--color-fd-border);
+  border-radius: 0.7rem;
+  background: var(--color-fd-card);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-fd-foreground);
+  text-decoration: none;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+.sources-list a::after {
+  content: '↗';
+  color: var(--color-fd-muted-foreground);
+}
+.sources-list a:hover {
+  border-color: var(--tk-line);
+  background: var(--tk-soft);
+}
+.sources-note {
+  margin-top: 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--color-fd-muted-foreground);
+}
+
+/* ---------- Edit link and disclaimer ---------- */
+.page-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 2.5rem;
+  font-size: 0.8125rem;
+  color: var(--color-fd-muted-foreground);
+}
+.page-meta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: fit-content;
+  font-weight: 500;
+}
+.page-meta a:hover {
+  color: var(--color-fd-foreground);
+}
+
+/* ---------- Tool cards (Club tools page) ---------- */
+.tool-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
+}
+@media (min-width: 900px) {
+  .tool-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.15rem 1.25rem;
+  border: 1px solid var(--color-fd-border);
+  border-radius: 1rem;
+  background: var(--color-fd-card);
+}
+.tool-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+.tool-card-head h3 {
+  font-size: 1.125rem;
+  font-weight: 750;
+  font-stretch: 88%;
+}
+.tool-card-icon {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.55rem;
+  background: var(--tk);
+  color: var(--tk-on);
+}
+.tool-card-icon svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+.tool-card-status {
+  margin-left: auto;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 650;
+  background: color-mix(in oklab, #34a853 16%, transparent);
+  color: light-dark(#137333, #81c995);
+}
+.dark .tool-card-status {
+  color: #81c995;
+}
+.tool-card[data-status='soon'] .tool-card-status {
+  background: var(--color-fd-muted);
+  color: var(--color-fd-muted-foreground);
+}
+.tool-card[data-status='soon'] {
+  border-style: dashed;
+}
+.tool-card-body {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--color-fd-muted-foreground);
+}
+.tool-card-body p {
+  margin: 0;
+}
+.tool-card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: auto 0 0;
+  padding: 0;
+  list-style: none;
+}
+.tool-card-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--color-fd-border);
+  border-radius: 999px;
+  background: var(--color-fd-background);
+  font-size: 0.8125rem;
+  font-weight: 550;
+  text-decoration: none;
+}
+.tool-card-links a:hover {
+  border-color: var(--color-fd-foreground);
+}
+.tool-card-links svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+/* ---------- Home page ---------- */
+.hero-art .ha-paper-2 { fill: var(--color-fd-muted); }
+.hero-art .ha-paper-1 { fill: color-mix(in oklab, var(--color-fd-muted) 60%, var(--color-fd-card)); stroke: var(--color-fd-border); }
+.hero-art .ha-page { fill: var(--color-fd-card); stroke: var(--color-fd-border); }
+.hero-art .ha-ink { fill: var(--color-fd-foreground); }
+.hero-art .ha-faint { fill: color-mix(in oklab, var(--color-fd-foreground) 22%, transparent); }
+.hero-art .ha-chip { fill: none; stroke: color-mix(in oklab, var(--color-fd-foreground) 25%, transparent); }
+.hero-art .ha-code { fill: #1e1e1e; }
+.dark .hero-art .ha-code { fill: #0f0f0f; stroke: var(--color-fd-border); }
+.hero-art .ha-code-line { fill: rgb(240 240 240 / 0.35); }
+.hero-art .ha-flow-bg { fill: var(--color-fd-background); stroke: var(--color-fd-border); stroke-dasharray: 5 5; }
+.hero-art .ha-node { fill: var(--color-fd-card); stroke: var(--color-fd-border); }
+.hero-art .ha-icon { color: var(--color-fd-foreground); }
+.hero-art .ha-edge path { fill: none; stroke: color-mix(in oklab, var(--color-fd-foreground) 30%, transparent); stroke-width: 2; }
+.hero-art .ha-pulse path { fill: none; stroke: #34a853; stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 5 15; animation: dg-flow 1.4s linear infinite; }
+.hero-art .ha-tab-label { font: 700 15px var(--font-sans); }
+.hero-art .ha-sticker { font: 800 18px var(--font-sans); fill: #1e1e1e; }
+
+.bento {
+  display: grid;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+}
+@media (min-width: 720px) {
+  .bento { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .bento { grid-template-columns: repeat(4, 1fr); }
+  .bento > .is-wide { grid-column: span 2; }
+}
+.bento > li { display: flex; }
+.bento-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1.35rem;
+  border: 1px solid var(--color-fd-border);
+  border-radius: 1.1rem;
+  background:
+    linear-gradient(to bottom, var(--tk-soft), transparent 70%),
+    var(--color-fd-card);
+  transition: border-color 0.2s, transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bento-tile::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 1.35rem;
+  width: 2.5rem;
+  height: 4px;
+  border-radius: 0 0 4px 4px;
+  background: var(--tk);
+}
+.bento-tile[data-track='club-tools']::before,
+.bento-tile[data-track='setup']::before {
+  background: linear-gradient(90deg, #4285f4 0 25%, #ea4335 0 50%, #f9ab00 0 75%, #34a853 0);
+}
+.bento-tile:hover {
+  border-color: var(--tk-line);
+  transform: translateY(-2px);
+}
+.mini-flow {
+  display: flex;
+  align-items: center;
+}
+.mini-flow-node {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.65rem;
+  border: 1px solid var(--color-fd-border);
+  background: var(--color-fd-background);
+  color: var(--tk-ink);
+}
+.mini-flow-node.is-accent {
+  background: var(--tk);
+  border-color: var(--tk);
+  color: var(--tk-on);
+}
+.mini-flow-node svg { width: 1.05rem; height: 1.05rem; }
+.mini-flow-edge {
+  width: 1.4rem;
+  height: 1.5px;
+  background: repeating-linear-gradient(90deg, var(--tk) 0 4px, transparent 4px 8px);
+}
+
+/* Lists inside a step keep their markers (the step list itself is not-prose). */
+.step .prose ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+}
+.step .prose ol {
+  list-style: decimal;
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+}
+.step .prose li {
+  margin: 0.25rem 0;
+}
+.step .prose li::marker {
+  color: var(--color-fd-muted-foreground);
+}
+.build-card-body code {
+  border: 0;
+  background: color-mix(in oklab, var(--color-fd-background) 65%, transparent);
+}
+
+/* ---------- Previous and next ---------- */
+.page-nav {
+  margin-top: 2.5rem;
+}
+.page-nav > a {
+  position: relative;
+  gap: 0.35rem !important;
+  padding: 1rem 1.15rem !important;
+  border-radius: 0.9rem !important;
+  background: var(--color-fd-card);
+  transition: border-color 0.15s, background-color 0.15s;
+}
+.page-nav > a::before {
+  content: 'Previous';
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-fd-muted-foreground);
+}
+.page-nav > a.text-end::before {
+  content: 'Next';
+}
+.page-nav > a > div {
+  font-size: 1rem;
+  font-weight: 650;
+  color: var(--color-fd-foreground);
+}
+.page-nav > a:hover {
+  border-color: var(--tk-line);
+  background: var(--tk-soft) !important;
+  color: inherit !important;
+}
+
+/* ---------- Callouts ---------- */
+#nd-page [style*='--callout-color'] {
+  border-radius: 0.9rem;
+  box-shadow: none;
+  padding: 0.9rem 1rem 0.9rem 0.4rem;
+  background: color-mix(in oklab, var(--callout-color) 7%, var(--color-fd-card));
+  border-color: color-mix(in oklab, var(--callout-color) 35%, var(--color-fd-border));
+  font-size: 0.925rem;
+}
+#nd-page [style*='--callout-color'] > [role='none'] {
+  width: 3px;
+  background: var(--callout-color);
+}
+#nd-page [style*='--callout-color'] > svg {
+  color: var(--callout-color);
+}
+#nd-page [style*='--callout-color'] p.font-medium {
+  font-weight: 650;
+}
+
+/* ---------- Code blocks ---------- */
+#nd-page figure.shiki {
+  border-radius: 0.8rem;
+  box-shadow: 0 1px 0 color-mix(in oklab, var(--color-fd-foreground) 5%, transparent);
+}

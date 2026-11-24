@@ -1,5 +1,6 @@
 {
   "title": "Web",
+  "icon": "web",
   "pages": [
     "1-firebase-hosting"
   ]

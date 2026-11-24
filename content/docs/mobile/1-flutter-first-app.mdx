@@ -1,15 +1,21 @@
 ---
 title: "Lesson 1: Your first Flutter app"
 description: Install Flutter with VS Code, create an app, run it in Chrome and use hot reload.
+sidebarTitle: 1. First Flutter app
+time: 45 min
+level: Starter
+needs: ["VS Code", "Chrome", "Git", "About 3 GB free"]
 ---
 
-## Goal
-
-Install Flutter, run an app, and change it while it runs with hot reload.
-
-## What you'll build
+<BuildCard goal="Install Flutter, run an app, and change it while it runs with hot reload.">
 
 Flutter's starter counter app, running in Chrome, with your own title and colour.
+
+</BuildCard>
+
+## How it fits together
+
+<Diagram name="flutter-targets" />
 
 ## Before you start
 
@@ -73,6 +79,8 @@ Open `lib/main.dart`. Find the title text and the `colorScheme` seed colour, and
 - **Stateless and stateful**: a stateless widget never changes on its own. A stateful one, like the counter, keeps data and redraws with `setState`.
 - **Hot reload**: injects your changed code into the running app without restarting it, so you keep your place.
 - **Targets**: the same code runs on Chrome, Android, iOS and desktop. Add a device later with Android Studio or Xcode.
+
+<Diagram name="hot-reload" />
 
 ## Troubleshooting
 

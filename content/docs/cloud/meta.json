@@ -1,5 +1,6 @@
 {
   "title": "Cloud",
+  "icon": "cloud",
   "pages": [
     "1-cloud-run"
   ]
